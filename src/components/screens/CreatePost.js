@@ -3,7 +3,7 @@ import M from 'materialize-css'
 import {useHistory} from 'react-router-dom'
 
 
-const Createpost =()=>{
+const CreatePost =()=>{
     const history=useHistory()
     const[title,setTitle]=useState("")
     const[body,setBody]=useState("")
@@ -30,7 +30,8 @@ const Createpost =()=>{
         fetch("/createPost",{    
             method:"Post",
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization":"Bearer"+localStorage.getItem("jwt")
             },
             body:JSON.stringify({
                title,
@@ -88,4 +89,4 @@ const Createpost =()=>{
     )
 
 }
-export default Createpost
+export default CreatePost

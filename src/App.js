@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar'
 import "./App.css"
-import {BrowserRouter,Route} from 'react-router-dom'
+import {BrowserRouter,Route, Switch} from 'react-router-dom'
 import Home from './components/screens/Home'
 import Signin from './components/screens/Signin'
 import Profile from './components/screens/Profile'
@@ -12,21 +12,23 @@ function App() {
   return (
     <BrowserRouter>
         <Navbar />
-        <Route exact Path="/">
+        <Switch>
+        <Route exact path="/">
           <Home />
         </Route>
-        <Route Path="/signin">
+        <Route path="/signin">
           <Signin />
         </Route>
-        <Route Path="/signup">
+        <Route path="/signup">
           <Signup />
         </Route>
-        <Route Path="/profile">
+        <Route path="/profile">
           <Profile />
         </Route>
-        <Route Path="/create">
+        <Route path="/create">
           <CreatePost />
         </Route>
+      </Switch>
     </BrowserRouter>
   );
 }
