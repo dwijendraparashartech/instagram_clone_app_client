@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import M from 'materialize-css'
 import {useHistory} from 'react-router-dom'
 
@@ -9,24 +9,8 @@ const CreatePost =()=>{
     const[body,setBody]=useState("")
     const[image,setImage]=useState("")
     const[url,setUrl]=useState("")
-
-
-    const postDetails =() =>{
-        const data = new FormData()
-        data.append("file",image)
-        data.append("upload_preset","instagram-clone")
-        data.append("cloud_name","bittern-technologies-pvt-ltd")
-        fetch("https://api.cloudinary.com/v1_1/bittern-technologies-pvt-ltd/image/upload",{
-            method:"post",
-            body:data
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            setUrl(data.url)
-        })
-        .catch(err=>{   
-            console.log(err)
-        })  
+    useEffect(()=>{
+        if(url){
         fetch("/createPost",{    
             method:"Post",
             headers:{
@@ -44,12 +28,32 @@ const CreatePost =()=>{
                     M.toast({html:data.error,classes:"#c62828 red darken-3"})
                 }
                 else{
-                    M.toast({html:"created post successfulss",classes:"#43a047 green darken-1"})
+                    M.toast({html:"created post successfully",classes:"#43a047 green darken-1"})
                     history.push('/')
                 }
             }).catch(err=>{
                 console.log(err)
             })
+        }
+    },[url])
+
+    const postDetails =() =>{
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","instagram-clone")
+        data.append("cloud_name","bittern-technologies-pvt-ltd")
+        fetch("https://api.cloudinary.com/v1_1/bittern-technologies-pvt-ltd/image/upload",{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setUrl(data.url)
+        })
+        .catch(err=>{   
+            console.log(err)
+        })  
+
     }
     return(
         <div className="card input-field"
