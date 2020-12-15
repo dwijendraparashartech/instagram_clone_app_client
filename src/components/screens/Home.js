@@ -12,6 +12,36 @@ const Home =() =>{
         // setData(result.posts)
     })
     },[])
+    const likePost= (id)=>{
+      fetch('/like',{
+        method:"put",
+        headers:{
+          "content-Type":"application/json",
+          "Authorization":"Bearer"+localStorage.getItem("jwt")
+        },
+        body:JSON.stringify({
+          PostId:id
+        })
+      }).then(res=>res.json())
+      .then(result=>{
+        console.log(result)
+      })
+    }
+    const unlikePost= (id)=>{
+      fetch('/like',{
+        method:"put",
+        headers:{
+          "content-Type":"application/json",
+          "Authorization":"Bearer"+localStorage.getItem("jwt")
+        },
+        body:JSON.stringify({
+          PostId:id
+        })
+      }).then(res=>res.json())
+      .then(result=>{
+        console.log(result)
+      })
+    }
     return(
         <div className="home">
           {
@@ -24,6 +54,9 @@ const Home =() =>{
                   </div>
                   <div className="card-content">
                   <i className="material-icons" style={{color:"red"}}>favorite</i>
+                  <i class="material-icons">thumb_up</i>
+                  <i class="material-icons">thumb_down</i>
+                    <h6>{item.likes.length}likes</h6>
                     <h6>{item.title}</h6>
                     <p>{item.body}</p>
                     <input type="text" placeholder="add a comment"/>
