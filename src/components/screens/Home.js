@@ -1,17 +1,20 @@
 import React,{useState,useEffect} from 'react'
 
-const Home =() =>{
+
+const Home = ()=>{
     const[data,setData] = useState([])
     useEffect(()=>{
      fetch('/allpost',{
       headers:{
-          "Authorization":"Bearer "+localStorage.getItem("jwt")
+          "Authorization":"Bearer"+localStorage.getItem("jwt")
       } 
     }).then(res=>res.json())
     .then(result=>{
-        // setData(result.posts)
+      console.log(result)
+       setData(result.posts)
     })
     },[])
+    
     const likePost= (id)=>{
       fetch('/like',{
         method:"put",
@@ -28,7 +31,7 @@ const Home =() =>{
       })
     }
     const unlikePost= (id)=>{
-      fetch('/like',{
+      fetch('/unlike',{
         method:"put",
         headers:{
           "content-Type":"application/json",
@@ -40,6 +43,7 @@ const Home =() =>{
       }).then(res=>res.json())
       .then(result=>{
         console.log(result)
+        // setData(result.posts)
       })
     }
     return(
